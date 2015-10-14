@@ -257,8 +257,8 @@
         // Create controlls
         if (this.s.controls && this.$items.length > 1) {
             controls = '<div class="lg-actions">' +
-                '<div class="lg-prev lg-icon">' + this.s.prevHtml + '</div>' +
-                '<div class="lg-next lg-icon">' + this.s.nextHtml + '</div>' +
+                '<div class="fa fa-chevron-left">' + this.s.prevHtml + '</div>' +
+                '<div class="fa fa-chevron-right">' + this.s.nextHtml + '</div>' +
                 '</div>';
         }
 
