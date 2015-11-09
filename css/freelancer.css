@@ -1,6 +1,7 @@
 body {
     overflow-x: hidden;
     background-image: url('img/geometry2.png');
+    background-attachment: fixed;
 }
 
 p {
