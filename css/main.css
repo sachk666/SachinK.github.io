@@ -959,6 +959,11 @@ ul.address {
 #footer .social-icons ul li a.twitter:hover {
   background-color: #2ac6f7;
 }
+
+#footer .social-icons ul li a.pinterest:hover {
+    background-color: #C92228;
+}
+
 #footer .social-icons ul li a.dribbble:hover {
   background-color: #ff5b92;
 }
