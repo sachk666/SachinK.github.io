@@ -1,202 +1,163 @@
-jQuery(document).ready(function(){
-	var intro = $('.cd-intro-block'),
-		projectsContainer = $('.cd-projects-wrapper'),
-		projectsSlider = projectsContainer.children('.cd-slider'),
-		singleProjectContent = $('.cd-project-content'),
-		sliderNav = $('.cd-slider-navigation');
+jQuery(function($) {
 
-	var resizing = false;
+	//Preloader
+	var preloader = $('.preloader');
+	$(window).load(function(){
+		preloader.remove();
+	});
+
+	//#main-slider
+	var slideHeight = $(window).height();
+	$('#home-slider .item').css('height',slideHeight);
+
+	$(window).resize(function(){'use strict',
+		$('#home-slider .item').css('height',slideHeight);
+	});
 	
-	//if on desktop - set a width for the projectsSlider element
-	setSliderContainer();
-	$(window).on('resize', function(){
-		//on resize - update projectsSlider width and translate value
-		if( !resizing ) {
-			(!window.requestAnimationFrame) ? setSliderContainer() : window.requestAnimationFrame(setSliderContainer);
-			resizing = true;
-		}
-	});
-
-	//show the projects slider if user clicks the show-projects button
-	intro.on('click', 'a[data-action="show-projects"]', function(event) {
-		event.preventDefault();
-		intro.addClass('projects-visible');
-		projectsContainer.addClass('projects-visible');
-		//animate single project - entrance animation
-		setTimeout(function(){
-			showProjectPreview(projectsSlider.children('li').eq(0));
-		}, 200);
-	});
-
-	intro.on('click', function(event) {
-		//projects slider is visible - hide slider and show the intro panel
-		if( intro.hasClass('projects-visible') && !$(event.target).is('a[data-action="show-projects"]') ) {
-			intro.removeClass('projects-visible');
-			projectsContainer.removeClass('projects-visible');
-		}
-	});
-
-	//select a single project - open project-content panel
-	projectsContainer.on('click', '.cd-slider a', function(event) {
-		var mq = checkMQ();
-		event.preventDefault();
-		if( $(this).parent('li').next('li').is('.current') && (mq == 'desktop') ) {
-			prevSides(projectsSlider);
-		} else if ( $(this).parent('li').prev('li').prev('li').prev('li').is('.current')  && (mq == 'desktop') ) {
-			nextSides(projectsSlider);
+	//Scroll Menu
+	$(window).on('scroll', function(){
+		if( $(window).scrollTop()>slideHeight ){
+			$('.main-nav').addClass('navbar-fixed-top');
 		} else {
-		    //singleProjectContent.addClass('is-visible');
-		    singleProjectContent.removeClass('is-visible');
-		    var href = $(this).attr('href');
-		    var href_to_id = href.substring(1);
-		    $('#p' + href_to_id).addClass('is-visible');
+			$('.main-nav').removeClass('navbar-fixed-top');
 		}
 	});
-
-	//close single project content
-	singleProjectContent.on('click', '.close', function(event){
-		event.preventDefault();
-		singleProjectContent.removeClass('is-visible');
+	
+	// Navigation Scroll
+	$(window).scroll(function(event) {
+		Scroll();
 	});
 
-	//go to next/pre slide - clicking on the next/prev arrow
-	sliderNav.on('click', '.next', function(){
-		nextSides(projectsSlider);
-	});
-	sliderNav.on('click', '.prev', function(){
-		prevSides(projectsSlider);
+	$('.navbar-collapse ul li a').on('click', function() {  
+		$('html, body').animate({scrollTop: $(this.hash).offset().top - 5}, 1000);
+		return false;
 	});
 
-	//go to next/pre slide - keyboard navigation
-	$(document).keyup(function(event){
-		var mq = checkMQ();
-		if(event.which=='37' &&  intro.hasClass('projects-visible') && !(sliderNav.find('.prev').hasClass('inactive')) && (mq == 'desktop') ) {
-			prevSides(projectsSlider);
-		} else if( event.which=='39' &&  intro.hasClass('projects-visible') && !(sliderNav.find('.next').hasClass('inactive')) && (mq == 'desktop') ) {
-			nextSides(projectsSlider);
-		} else if(event.which=='27' && singleProjectContent.hasClass('is-visible')) {
-			singleProjectContent.removeClass('is-visible');
-		}
-	});
-
-	projectsSlider.on('swipeleft', function(){
-		var mq = checkMQ();
-		if( !(sliderNav.find('.next').hasClass('inactive')) && (mq == 'desktop') ) nextSides(projectsSlider);
-	});
-
-	projectsSlider.on('swiperight', function(){
-		var mq = checkMQ();
-		if ( !(sliderNav.find('.prev').hasClass('inactive')) && (mq == 'desktop') ) prevSides(projectsSlider);
-	});
-
-	function showProjectPreview(project) {
-		if(project.length > 0 ) {
-			setTimeout(function(){
-				project.addClass('slides-in');
-				showProjectPreview(project.next());
-			}, 50);
-		}
-	}
-
-	function checkMQ() {
-		//check if mobile or desktop device
-		return window.getComputedStyle(document.querySelector('.cd-projects-wrapper'), '::before').getPropertyValue('content').replace(/'/g, "").replace(/"/g, "");
-	}
-
-	function setSliderContainer() {
-		var mq = checkMQ();
-		if(mq == 'desktop') {
-			var	slides = projectsSlider.children('li'),
-				slideWidth = slides.eq(0).width(),
-				marginLeft = Number(projectsSlider.children('li').eq(1).css('margin-left').replace('px', '')),
-				sliderWidth = ( slideWidth + marginLeft )*( slides.length + 1 ) + 'px',
-				slideCurrentIndex = projectsSlider.children('li.current').index();
-			projectsSlider.css('width', sliderWidth);
-			( slideCurrentIndex != 0 ) && setTranslateValue(projectsSlider, (  slideCurrentIndex * (slideWidth + marginLeft) + 'px'));
-		} else {
-			projectsSlider.css('width', '');
-			setTranslateValue(projectsSlider, 0);
-		}
-		resizing = false;
-	}
-
-	function nextSides(slider) {
-		var actual = slider.children('.current'),
-			index = actual.index(),
-			following = actual.nextAll('li').length,
-			width = actual.width(),
-			marginLeft = Number(slider.children('li').eq(1).css('margin-left').replace('px', ''));
-
-		index = (following > 4 ) ? index + 3 : index + following - 2;
-		//calculate the translate value of the slider container
-		translate = index * (width + marginLeft) + 'px';
-
-		slider.addClass('next');
-		setTranslateValue(slider, translate);
-		slider.one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(){
-			updateSlider('next', actual, slider, following);
-		});
-
-		if( $('.no-csstransitions').length > 0 ) updateSlider('next', actual, slider, following);
-	}
-
-	function prevSides(slider) {
-		var actual = slider.children('.previous'),
-			index = actual.index(),
-			width = actual.width(),
-			marginLeft = Number(slider.children('li').eq(1).css('margin-left').replace('px', ''));
-
-		translate = index * (width + marginLeft) + 'px';
-
-		slider.addClass('prev');
-		setTranslateValue(slider, translate);
-		slider.one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(){
-			updateSlider('prev', actual, slider);
-		});
-
-		if( $('.no-csstransitions').length > 0 ) updateSlider('prev', actual, slider);
-	}
-
-	function updateSlider(direction, actual, slider, numerFollowing) {
-		if( direction == 'next' ) {
-			
-			slider.removeClass('next').find('.previous').removeClass('previous');
-			actual.removeClass('current');
-			if( numerFollowing > 4 ) {
-				actual.addClass('previous').next('li').next('li').next('li').addClass('current');
-			} else if ( numerFollowing == 4 ) {
-				actual.next('li').next('li').addClass('current').prev('li').prev('li').addClass('previous');
-			} else {
-				actual.next('li').addClass('current').end().addClass('previous');
+	// User define function
+	function Scroll() {
+		var contentTop      =   [];
+		var contentBottom   =   [];
+		var winTop      =   $(window).scrollTop();
+		var rangeTop    =   200;
+		var rangeBottom =   500;
+		$('.navbar-collapse').find('.scroll a').each(function(){
+			contentTop.push( $( $(this).attr('href') ).offset().top);
+			contentBottom.push( $( $(this).attr('href') ).offset().top + $( $(this).attr('href') ).height() );
+		})
+		$.each( contentTop, function(i){
+			if ( winTop > contentTop[i] - rangeTop ){
+				$('.navbar-collapse li.scroll')
+				.removeClass('active')
+				.eq(i).addClass('active');			
 			}
-		} else {
-			
-			slider.removeClass('prev').find('.current').removeClass('current');
-			actual.removeClass('previous').addClass('current');
-			if(actual.prevAll('li').length > 2 ) {
-				actual.prev('li').prev('li').prev('li').addClass('previous');
-			} else {
-				( !slider.children('li').eq(0).hasClass('current') ) && slider.children('li').eq(0).addClass('previous');
-			}
+		})
+	};
+
+	$('#tohash').on('click', function(){
+		$('html, body').animate({scrollTop: $(this.hash).offset().top - 5}, 1000);
+		return false;
+	});
+	
+	//Initiat WOW JS
+	new WOW().init();
+	//smoothScroll
+	smoothScroll.init();
+	
+	// Progress Bar
+	$('#about-us').bind('inview', function(event, visible, visiblePartX, visiblePartY) {
+		if (visible) {
+			$.each($('div.progress-bar'),function(){
+				$(this).css('width', $(this).attr('aria-valuetransitiongoal')+'%');
+			});
+			$(this).unbind('inview');
 		}
-		
-		updateNavigation();
-	}
+	});
 
-	function updateNavigation() {
-		//update visibility of next/prev buttons according to the visible slides
-		var current = projectsContainer.find('li.current');
-		(current.is(':first-child')) ? sliderNav.find('.prev').addClass('inactive') : sliderNav.find('.prev').removeClass('inactive');
-		(current.nextAll('li').length < 3 ) ? sliderNav.find('.next').addClass('inactive') : sliderNav.find('.next').removeClass('inactive');
-	}
+	//Countdown
+	$('#features').bind('inview', function(event, visible, visiblePartX, visiblePartY) {
+		if (visible) {
+			$(this).find('.timer').each(function () {
+				var $this = $(this);
+				$({ Counter: 0 }).animate({ Counter: $this.text() }, {
+					duration: 2000,
+					easing: 'swing',
+					step: function () {
+						$this.text(Math.ceil(this.Counter));
+					}
+				});
+			});
+			$(this).unbind('inview');
+		}
+	});
 
-	function setTranslateValue(item, translate) {
-		item.css({
-		    '-moz-transform': 'translateX(-' + translate + ')',
-		    '-webkit-transform': 'translateX(-' + translate + ')',
-			'-ms-transform': 'translateX(-' + translate + ')',
-			'-o-transform': 'translateX(-' + translate + ')',
-			'transform': 'translateX(-' + translate + ')',
+	// Portfolio Single View
+	$('#portfolio').on('click','.folio-read-more',function(event){
+		event.preventDefault();
+		var link = $(this).data('single_url');
+		var full_url = '#portfolio-single-wrap',
+		parts = full_url.split("#"),
+		trgt = parts[1],
+		target_top = $("#"+trgt).offset().top;
+
+		$('html, body').animate({scrollTop:target_top}, 600);
+		$('#portfolio-single').slideUp(500, function(){
+			$(this).load(link,function(){
+				$(this).slideDown(500);
+			});
+		});
+	});
+
+	// Close Portfolio Single View
+	$('#portfolio-single-wrap').on('click', '.close-folio-item',function(event) {
+		event.preventDefault();
+		var full_url = '#portfolio',
+		parts = full_url.split("#"),
+		trgt = parts[1],
+		target_offset = $("#"+trgt).offset(),
+		target_top = target_offset.top;
+		$('html, body').animate({scrollTop:target_top}, 600);
+		$("#portfolio-single").slideUp(500);
+	});
+
+	// Contact form
+	var form = $('#main-contact-form');
+	form.submit(function(event){
+		event.preventDefault();
+		var form_status = $('<div class="form_status"></div>');
+		$.ajax({
+			url: $(this).attr('action'),
+			beforeSend: function(){
+				form.prepend( form_status.html('<p><i class="fa fa-spinner fa-spin"></i> Email is sending...</p>').fadeIn() );
+			}
+		}).done(function(data){
+			form_status.html('<p class="text-success">Thank you for contact us. As early as possible  we will contact you</p>').delay(3000).fadeOut();
+		});
+	});
+
+	//Google Map
+	var latitude = $('#google-map').data('latitude')
+	var longitude = $('#google-map').data('longitude')
+	function initialize_map() {
+		var myLatlng = new google.maps.LatLng(latitude,longitude);
+		var mapOptions = {
+			zoom: 14,
+			scrollwheel: false,
+			center: myLatlng
+		};
+		var map = new google.maps.Map(document.getElementById('google-map'), mapOptions);
+		var contentString = '';
+		var infowindow = new google.maps.InfoWindow({
+			content: '<div class="map-content"><ul class="address">' + $('.address').html() + '</ul></div>'
+		});
+		var marker = new google.maps.Marker({
+			position: myLatlng,
+			map: map
+		});
+		google.maps.event.addListener(marker, 'click', function() {
+			infowindow.open(map,marker);
 		});
 	}
+	google.maps.event.addDomListener(window, 'load', initialize_map);
+	
 });
+
