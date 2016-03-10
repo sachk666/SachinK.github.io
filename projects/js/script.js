@@ -167,7 +167,7 @@ function Typewriting() {
 $(document).ready(function(){
 	setTimeout( function(){
 		if($("#site-type").length) {
-        $(".typewrite span").typed({
+        $(".typewrite").typed({
             strings: ["show case ", "projects "],
             typeSpeed: 100,
             backDelay: 500,

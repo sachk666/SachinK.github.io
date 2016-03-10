@@ -74,7 +74,7 @@
         <div class="text-intro">
             <div class="one-column">
                 <p>
-                    THE STORY<br /><br />
+                    <span class="element"></span><br /><br />
 
                     America’s Best Communities competition is a $10 million initiative to stimulate economic revitalization in small towns and cities. Each community will be awarded $50,000 to develop comprehensive strategies to accelerate the revival of their local economies and improve quality of life.
 
@@ -195,8 +195,25 @@
                 <p>The demo of the prototype has been included as video, which shows usability study, conceptual design and all other brief steps in detail. The application was developed using Unreal engine. Several field visits were made to create the concepts by game designers.</p>
                 <br /><br /><br /><br />
             </div>
-        </div>
 
+            <div class="full-column">
+                <p>TAKEAWAY</p>
+                <p>
+                    This was a very new experience for me. I absolutely am a game freak (Masters is cutting down on that for me) and wanted to work on interaction design in this field.
+                    Its lot easier to imagine storyboard for the games compared to a traditional application. But downside is its difficult to apply the design heuristics that I am aware of.
+                    It took lot of brainstorming by time as well as from my side to come up with an optimal design decision. Cognition has a major foreplay in such design, expecially high-level, which includes low-lever
+                    (incase of games) as well. Once we started concentrating on that, we were at a better position of design phase.
+                </p>
+                <br /><br /><br /><br />
+            </div>
+            <div class="full-column">
+                <p>TOOLS</p>
+                <p>
+                    Autodesk SketchPro, Photoshop, VISIO, 
+                </p>
+                <br /><br /><br /><br />
+            </div>
+        </div>
         <div class="prev-next">
 
             <div class="prev-button"><a href="guardian.html">Previous work</a></div>
@@ -252,6 +269,19 @@
             $(".opacity-nav").fadeToggle("slow", "linear");
             // Animation complete.
         });
+    </script>
+    <script>
+    $(function(){
+        $(".element").typed({
+            strings: ["THE STORY"],
+            typeSpeed: 410,
+            backDelay: 400,
+            loop: false,
+            contentType: 'html', // or text
+            // defaults to false for infinite loop
+            loopCount: false,
+        });
+    });
     </script>
     <!-- Google Analytics -->
     <script>
