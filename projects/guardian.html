@@ -23,7 +23,24 @@
     <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-
+    <style type="text/css">
+        a.back-to-top {
+            display: none;
+            width: 60px;
+            height: 60px;
+            text-indent: -9999px;
+            position: fixed;
+            z-index: 999;
+            right: 20px;
+            bottom: 20px;
+            background: #B1810B url("up-arrow.png") no-repeat center 43%;
+            border:white;
+            border-style:solid;
+            -webkit-border-radius: 30px;
+            -moz-border-radius: 30px;
+            border-radius: 30px;
+        }
+    </style>
 </head>
 
 <body style="background-color:#D8D8D8">
@@ -249,11 +266,10 @@
             </div>
         </div>
     </div>
-
     <div class="prev-next">
 
-        <div class="prev-button"><a href="fitnessbowl.html">Previous work</a></div>
-        <div class="next-button"><a href="ovozoid.html">Next work</a></div>
+        <div class="prev-button"><span class="fa fa-arrow-circle-left"></span><a href="fitnessbowl.html">Previous work</a></div>
+        <div class="next-button"><a href="ovozoid.html">Next work</a><span class="fa fa-arrow-circle-right"></span></div>
 
     </div>
 
@@ -269,7 +285,6 @@
     <!--Footer-->
 
     <footer style="background-color:#B1810B">
-
         <div class="footer-margin">
             <div class="social-footer">
                 <a href="https://www.linkedin.com/in/sachin-kumarswamy-41670625" style="border-bottom:1px solid #dedede;" target="_blank"><i class="fa fa-linkedin"></i></a>
@@ -283,7 +298,6 @@
 
 
     </footer>
-
 
 
     <!--Scripts-->
@@ -306,6 +320,7 @@
             // Animation complete.
         });
     </script>
+    <!-- Animated typing -->
     <script>
         $(function () {
             $(".element").typed({
@@ -317,6 +332,28 @@
                 // defaults to false for infinite loop
                 loopCount: false,
             });
+        });
+    </script>
+    <!-- Back to top -->
+    <script type="text/javascript">
+        // create the back to top button
+        $('body').prepend('<a href="#" class="back-to-top">Back to Top</a>');
+
+        var amountScrolled = 300;
+
+        $(window).scroll(function () {
+            if ($(window).scrollTop() > amountScrolled) {
+                $('a.back-to-top').fadeIn('slow');
+            } else {
+                $('a.back-to-top').fadeOut('slow');
+            }
+        });
+
+        $('a.back-to-top, a.simple-back-to-top').click(function () {
+            $('html, body').animate({
+                scrollTop: 0
+            }, 700);
+            return false;
         });
     </script>
     <!-- Google Analytics -->
