@@ -367,13 +367,13 @@ section {
   transition:  width 2s ease-in-out;
 }
 
-.fun-flow{
+.progress .fun-flow{
    -webkit-transition-property: width; /* Safari */
    -webkit-transition-duration: 2s; /* Safari */
-   -webkit-transition-delay: .8s; /* Safari */
+   -webkit-transition-delay: 2s; /* Safari */
    transition-property: width;
    transition-duration: 2s;
-   transition-delay: .8s;
+   transition-delay: 2s;
    width:120%;
 }
 
