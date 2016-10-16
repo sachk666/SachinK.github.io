@@ -410,8 +410,8 @@ section {
   opacity: 0;
   margin-bottom: 75px;
   margin-top: -75px;
-  -webkit-transition: all 0.5s ease-in;
-  transition: all 0.5s ease-in;
+  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
 
 .overlay .folio-info h3 {
