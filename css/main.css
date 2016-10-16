@@ -368,7 +368,13 @@ section {
 }
 
 fun-flow{
-
+   -webkit-transition-property: width; /* Safari */
+    -webkit-transition-duration: 2s; /* Safari */
+    -webkit-transition-delay: .8s; /* Safari */
+    transition-property: width;
+    transition-duration: 2s;
+    transition-delay: .8s;
+   width:120%;
 }
 
 /*************************
