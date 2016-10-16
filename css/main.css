@@ -391,8 +391,8 @@ section {
   position: absolute;
   text-align: center;
   opacity:0;  
-  -webkit-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;
+  -webkit-transition: all 0.5s ease-in;
+  transition: all 0.5s ease-in;
 }
 
 .overlay .overlay-content {
@@ -410,8 +410,8 @@ section {
   opacity: 0;
   margin-bottom: 75px;
   margin-top: -75px;
-  -webkit-transition: all 1s ease-in-out;
-  transition: all 1s ease-in-out;
+  -webkit-transition: all 1s ease-in;
+  transition: all 1s ease-in;
 }
 
 .overlay .folio-info h3 {
@@ -442,8 +442,8 @@ section {
 }
 
 .folio-image, .folio-overview .folio-expand {
-  -webkit-transition: all 0.8s ease-in-out;
-  transition: all 0.8s ease-in-out;
+  -webkit-transition: all 0.5s ease-in;
+  transition: all 0.5s ease-in;
 }
 
 #portfolio .folio-item:hover .folio-image {
