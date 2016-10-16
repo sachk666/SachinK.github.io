@@ -367,7 +367,7 @@ section {
   transition:  width 2s ease-in-out;
 }
 
-fun-flow{
+.fun-flow{
    -webkit-transition-property: width; /* Safari */
     -webkit-transition-duration: 2s; /* Safari */
     -webkit-transition-delay: .8s; /* Safari */
