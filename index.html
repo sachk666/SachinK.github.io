@@ -35,6 +35,18 @@
             border-radius: 30px;
         }
     </style>
+    <style type="text/css">
+        @media screen and (min-width: 980px) {
+            div#tab {
+                display: none;
+            }
+        }
+        @media screen and (max-width: 979px) {
+            div#pc {
+                display: none;
+            }
+        }
+    </style>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
     <link rel="shortcut icon" href="images/favicon.ico">
 </head><!--/head-->
@@ -236,7 +248,10 @@
                             <div class="progress">
                                 <div class="progress-bar progress-bar-primary six-sec-ease-in-out" role="progressbar" aria-valuetransitiongoal="100"></div>
                             </div>
-                            <div style="position:absolute;margin-left:555px;margin-top:-45px" class="progress fun-flow wow fadeInDownBig" data-wow-duration="1000ms" data-wow-delay="1000ms">
+                            <div id="pc" style="position:absolute;margin-left:555px;margin-top:-45px" class="progress fun-flow wow fadeInDownBig" data-wow-duration="1000ms" data-wow-delay="1000ms">
+                                <div class="progress-bar progress-bar-primary six-sec-ease-in-out" role="progressbar" aria-valuetransitiongoal="100">110%</div>
+                            </div>
+                            <div id="tab" style="position:absolute;margin-left:555px;margin-top:-45px;z-index:1000;" class="progress">
                                 <div class="progress-bar progress-bar-primary six-sec-ease-in-out" role="progressbar" aria-valuetransitiongoal="100">110%</div>
                             </div>
                         </div>
