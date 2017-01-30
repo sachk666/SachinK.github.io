@@ -285,7 +285,7 @@ header .logo > a{
   float:left;
   line-height:80px;
   padding-right:40px;
-  border-bottom: 1px solid #f1f1f1;
+  /*border-bottom: 1px solid #f1f1f1;*/
 }
 
 header .logo > a:hover{
@@ -351,16 +351,31 @@ CONTENT
   
 }
 
+.mark1{
+   background-color:#3a5e93;
+   color:white;
+}
+
+.mark2{
+   background-color:#CB4444;
+   color:white;
+}
+
+.mark3{
+   background-color:#B1810B;
+   color:white;
+}
+
 .one-column{
-  width:40%;
+  width:45%;
   position:relative;
   float:left;
 }
 
-.half-column{
-    width:50%;
-    position:relative;
-    float:left;
+.two-column{
+  width:45%;
+  position:relative;
+  float:right;
 }
 
 .full-column{
@@ -369,14 +384,8 @@ CONTENT
     float:left;
 }
 
-.two-column{
-  width:60%;
-  position:relative;
-  float:left;
-}
-
 .one-column p{
-  width:70% !important;
+  width:100% !important;
 }
 
 .two-column p{
@@ -404,7 +413,7 @@ CONTENT
   margin: 150px auto 0;
 }
 
-.content .text-intro-image{
+.text-intro-image{
   width: 600px;
   margin-top: 150px;
   margin: 150px auto 0;
@@ -539,9 +548,10 @@ PORTFOLIO GRID
   padding-bottom: 15px;
 }
 
-.prev-next a:hover{
-  border-bottom:1px solid black;
-}
+/*.prev-next a:hover{
+  /*border-bottom:1px solid black;
+  background-color:black;
+}*/
 
 .prev-button{
   width:50%;
